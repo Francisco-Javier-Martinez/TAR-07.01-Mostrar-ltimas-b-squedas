@@ -5,7 +5,8 @@
         private $modeloMinijuego;
         public $vista;
         public $mensaje;
-
+        
+        //constructor 
         public function __construct() {
             $this->modeloMinijuego=new Mminijuego();
             $this->vista='';
@@ -38,6 +39,7 @@
                 $cookiesJuegos=[];
                 foreach ($_COOKIE as $nombre => $valor) {
                     //strpos sirve para buscar una subcadena dentro de una cadena
+                    //Si ese juego ya existe, no se añade pero si no existe, se añade
                     if (strpos($nombre, 'Juego')!=false) {
                         $cookiesJuegos[$nombre]=$valor;
                     }
@@ -51,6 +53,9 @@
                     }
                 }
                 //Crear la cookie del juego actual
+                //El primer parámetro es el nombre de la cookie
+                //El segundo parámetro es el valor de la cookie
+                //El tercer parámetro es el tiempo de expiración (en este caso, 1 hora)
                 setcookie($cookieName, $resultado['nombre'], time() + 3600, "/");
                 session_start();
                 $this->vista='jugar.php';
